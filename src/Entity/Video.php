@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
 {
+    const YOUTUBE = 'https://www.youtube.com/embed/';
+    const DAILYMOTION = 'https://www.dailymotion.com/embed/video/';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,9 +23,10 @@ class Video
     private ?Trick $trick = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $videoId = null;
 
-    private ?string $file = null;
+    #[ORM\Column(length: 255)]
+    private ?string $platform = null;
 
     public function getId(): ?int
     {
@@ -41,26 +45,26 @@ class Video
         return $this;
     }
 
-    public function getName(): ?string
+    public function getVideoId(): ?string
     {
-        return $this->name;
+        return $this->videoId;
     }
 
-    public function setName(string $name): static
+    public function setVideoId(string $videoId): static
     {
-        $this->name = $name;
+        $this->videoId = $videoId;
 
         return $this;
     }
 
-    public function getFile(): ?string
+    public function getPlatform(): ?string
     {
-        return $this->file;
+        return $this->platform;
     }
 
-    public function setFile(string $file): static
+    public function setPlatform(string $platform): static
     {
-        $this->file = $file;
+        $this->platform = $platform;
 
         return $this;
     }
