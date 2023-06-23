@@ -1,0 +1,38 @@
+<section id="tricks" class="portfolio">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tricks</h2>
+            <p>Envolez-vous vers de nouveaux sommets de sensations avec nos tricks époustouflants, où l'audace et la maîtrise s'unissent pour repousser les limites de la glisse.</p>
+        </div>
+        <div class="row portfolio-container">
+            {% for trick in tricks %}
+                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <div class="portfolio-wrap">
+                        {% if trick.pictures|first %}
+                            <img src="assets/img/tricks/{{ trick.pictures|first.name }}" class="img-fluid" alt="Image principale du trick">
+                        {% else %}
+                            <img src="assets/img/tricks/default-trick-img.png" class="img-fluid" alt="Image par défaut">
+                        {% endif %}
+                        <div class="portfolio-info">
+                            <h4>{{ trick.name }}</h4>
+                            <p>
+                                {% for tag in trick.tags %}
+                                    {% if loop.last == false %}
+                                        {{ tag.name }}, 
+                                    {% else %}
+                                        {{ tag.name }}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                            <div class="portfolio-links">
+                                <a href="#" title="Voir plus"><i class="bx bxs-show"></i></a>
+                                <a href="#" title="Modifier"><i class="bx bxs-edit-alt"></i></a>
+                                <a href="#" title="Supprimer"><i class="bx bxs-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
