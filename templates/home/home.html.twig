@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Snowtricks {% endblock %}
+
+{% block hero %}
+    {% include "shared/_hero.html.twig" %}
+{% endblock %}
+
+{% block main %}
+    {% include "shared/_about.html.twig" %}
+    {% include "shared/_tricks.html.twig" %}
+    {% include "shared/_faq.html.twig" %}
+    {% include "shared/_contact.html.twig" %}
+{% endblock %}

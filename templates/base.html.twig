@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %}Snowtricks{% endblock %}</title>
+        <link rel="icon" href="favicon.svg">
         {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+            <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+            <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+            <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+            <link href="assets/css/style.css" rel="stylesheet">
         {% endblock %}
-
+	</head>
+	<body>
+        {% block hero %}{% endblock %}
+        {% block header %}
+            {% include "shared/_header.html.twig" %}
+        {% endblock %}
+        {% block main %}{% endblock %}
+        {% block footer %}
+            {% include "shared/_footer.html.twig" %}
+        {% endblock %}
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bx bx-up-arrow-alt"></i></a>
         {% block javascripts %}
+            <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="assets/js/main.js"></script>
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+	</body>
 </html>
