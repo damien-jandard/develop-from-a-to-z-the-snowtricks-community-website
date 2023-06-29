@@ -11,8 +11,12 @@
 					<li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
 				{% endif %}
-				<li><a class="nav-link" href="#">S'inscrire<i class="bx bxs-user-plus"></i></a></li>
-				<li><a class="nav-link" href="#">Se connecter<i class="bx bxs-lock"></i></a></li>
+				{% if app.user %}
+					<li><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<i class="bx bxs-exit"></i></a></li>
+				{% else %}
+					<li><a class="nav-link" href="">S'inscrire<i class="bx bxs-user-plus"></i></a></li>
+					<li><a class="nav-link" href="{{ path('app_login') }}">Se connecter<i class="bx bxs-lock"></i></a></li>
+				{% endif %}
 			</ul>
 			<i class="bi bi-list mobile-nav-toggle"></i>
 		</nav>

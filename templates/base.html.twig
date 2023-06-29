@@ -17,6 +17,14 @@
         {% block header %}
             {% include "shared/_header.html.twig" %}
         {% endblock %}
+        {% if app.user and app.user.isValid == false %}
+            <div class="alert alert-warning alert-dismissible mb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="alert-message">
+                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation par <strong><a href="">email</i></a></strong>
+                </div>
+            </div>
+        {% endif %}
         {% block hero %}{% endblock %}
         {% block main %}{% endblock %}
         {% block footer %}
