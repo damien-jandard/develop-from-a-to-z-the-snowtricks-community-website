@@ -21,10 +21,11 @@
             <div class="alert alert-warning alert-dismissible mb-0">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <div class="alert-message">
-                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation par <strong><a href="">email</i></a></strong>
+                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation par <strong><a href="{{ path('app_resend_activation') }}">email</i></a></strong>
                 </div>
             </div>
         {% endif %}
+        {% include "shared/_flash.html.twig" %}
         {% block hero %}{% endblock %}
         {% block main %}{% endblock %}
         {% block footer %}
