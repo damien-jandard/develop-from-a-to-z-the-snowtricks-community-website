@@ -8,38 +8,41 @@
             <div class="section-title">
                 <h1>S'inscrire</h1>
             </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 mt-5 mt-lg-0">
+                    {{ form_start(registrationForm, {'attr': {'class': 'authentication-form'}}) }}
+                        <div class="form-group mt-3">
+                            {{ form_widget(registrationForm.username) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_widget(registrationForm.email) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_widget(registrationForm.plainPassword.first) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_widget(registrationForm.plainPassword.second) }}
+                        </div>
+                        <div class="form-check mt-3">
+                            {{ form_widget(registrationForm.RGPDConsent) }} {{ form_label(registrationForm.RGPDConsent) }}
+                        </div>
 
-            {{ form_start(registrationForm, {'attr': {'class': 'authentication-form'}}) }}
-                <div class="form-group mt-3">
-                    {{ form_widget(registrationForm.username) }}
+                        {% if not registrationForm.vars.valid %}
+                            <div class="error-message d-block mt-3">
+                                {{ form_errors(registrationForm.username) }}
+                                {{ form_errors(registrationForm.email) }}
+                                {{ form_errors(registrationForm.plainPassword.first) }}
+                                {{ form_errors(registrationForm.RGPDConsent) }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="text-center mt-3">
+                            <button type="submit">S'inscrire</button>
+                            <a class="px-3" href="{{ path('app_login') }}">Déjà enregistré ?</a>
+                        </div>
+                    {{ form_end(registrationForm) }}
                 </div>
-                <div class="form-group mt-3">
-                    {{ form_widget(registrationForm.email) }}
-                </div>
-                <div class="form-group mt-3">
-                    {{ form_widget(registrationForm.plainPassword.first) }}
-                </div>
-                <div class="form-group mt-3">
-                    {{ form_widget(registrationForm.plainPassword.second) }}
-                </div>
-                <div class="form-check mt-3">
-                    {{ form_widget(registrationForm.RGPDConsent) }} {{ form_label(registrationForm.RGPDConsent) }}
-                </div>
-
-                {% if not registrationForm.vars.valid %}
-                    <div class="error-message d-block mt-3">
-                        {{ form_errors(registrationForm.username) }}
-                        {{ form_errors(registrationForm.email) }}
-                        {{ form_errors(registrationForm.plainPassword.first) }}
-                        {{ form_errors(registrationForm.RGPDConsent) }}
-                    </div>
-                {% endif %}
-                
-                <div class="text-center mt-3">
-                    <button type="submit">S'inscrire</button>
-                    <a class="px-3" href="{{ path('app_login') }}">Déjà enregistré ?</a>
-                </div>
-            {{ form_end(registrationForm) }}
+            </div>
         </div>
     </section>
 {% endblock %}
