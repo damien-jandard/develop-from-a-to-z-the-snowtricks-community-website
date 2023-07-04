@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="authentication" class="authentication section-bg">
+        <div class="container">
+            <div class="section-title">
+                <h2>Login</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 mt-5 mt-lg-0">
+                    <form method="post" class="authentication-form">
+                        {% if app.user %}
+                            <div class="text-center mb-3">
+                                Vous êtes connecté en tant que {{ app.user.userIdentifier }}. Souhaitez-vous vous <a href="{{ path('app_logout') }}">déconnecter ?</a>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="form-group mt-3">
+                            <input type="email" value="{{ last_username }}" name="email" class="form-control" autocomplete="email" placeholder="Email" required autofocus>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+                        </div>
+                        <div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        </div>
+                        {% if error %}
+                            <div class="error-message d-block mt-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <div class="text-center mt-3">
+                            <button type="submit">Connexion <i class="bx bxs-lock-open"></i></button>
+                            <a class="px-3" href="{{ path('app_register') }}">Pas encore inscrit ?</a>
+                        </div>
+                        <div class="text-end mt-3">
+                            <a class="text-info" href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

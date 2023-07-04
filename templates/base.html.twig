@@ -7,16 +7,25 @@
         <link rel="icon" href="favicon.svg">
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-            <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-            <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-            <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-            <link href="assets/css/style.css" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
         {% endblock %}
 	</head>
 	<body>
         {% block header %}
             {% include "shared/_header.html.twig" %}
         {% endblock %}
+        {% if app.user and app.user.isValid == false %}
+            <div class="alert alert-warning alert-dismissible mb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="alert-message">
+                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation par <strong><a href="{{ path('app_resend_activation') }}">email</i></a></strong>
+                </div>
+            </div>
+        {% endif %}
+        {% include "shared/_flash.html.twig" %}
         {% block hero %}{% endblock %}
         {% block main %}{% endblock %}
         {% block footer %}
@@ -24,8 +33,8 @@
         {% endblock %}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bx bx-up-arrow-alt"></i></a>
         {% block javascripts %}
-            <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="assets/js/main.js"></script>
+            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('assets/js/main.js') }}"></script>
         {% endblock %}
 	</body>
 </html>
