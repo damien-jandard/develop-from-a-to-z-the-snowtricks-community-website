@@ -7,13 +7,24 @@ class JWTService
     /**
      * Generation of a JWT token
      *
-     * @param array $header
-     * @param array $payload
+     * @param string|array $payload
      * @param string $secret
+     * @param integer $validity
      * @return string
      */
-    public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
+    public function generate(string|array $payload, string $secret, int $validity = 10800): string
     {
+        $header = [
+            'alg' => 'HS256',
+            'typ' => 'JWT'
+        ];
+
+        if (is_string($payload)) {
+            $email = $payload;
+            $payload = [];
+            $payload['user_email'] = $email;
+        }
+
         if($validity > 0){
             $now = new \DateTimeImmutable();
             $exp = $now->getTimestamp() + $validity;
@@ -76,7 +87,7 @@ class JWTService
         $header = $this->getHeader($token);
         $payload = $this->getPayLoad($token);
 
-        $regenerateToken = $this->generate($header, $payload, $secret, 0);
+        $regenerateToken = $this->generate($payload, $secret, 0);
 
         return $token === $regenerateToken;
     }

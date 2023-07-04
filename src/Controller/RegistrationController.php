@@ -12,14 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
         $user = new User();
@@ -35,16 +34,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $header = [
-                'alg' => 'HS256',
-                'typ' => 'JWT'
-            ];
-
-            $payload = [
-                'user_email' => $user->getEmail()
-            ];
-
-            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+            $token = $jwt->generate($user->getEmail(), $this->getParameter('app.jwtsecret'));
 
             $user->setToken($token);
 
@@ -66,7 +56,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/check/{token}', name: 'app_check_activation')]
+    #[Route('/check/{token}', name: 'app_check_activation', methods: ['GET'])]
     public function checkActivation(string $token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
@@ -89,7 +79,7 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/activation', name: 'app_resend_activation')]
+    #[Route('/activation', name: 'app_resend_activation', methods: ['GET'])]
     public function resendActivation(JWTService $jwt, SendMailService $mail, EntityManagerInterface $entityManager): Response
     {
         /**
@@ -102,20 +92,11 @@ class RegistrationController extends AbstractController
         }
 
         if ($user->isIsValid()) {
-            $this->addFlash('info', 'Vous compte est déjà activé.');
+            $this->addFlash('info', 'Votre compte est déjà activé.');
             return $this->redirectToRoute('app_home');
         }
 
-        $header = [
-            'alg' => 'HS256',
-            'typ' => 'JWT'
-        ];
-
-        $payload = [
-            'user_email' => $user->getEmail()
-        ];
-
-        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+        $token = $jwt->generate($user->getEmail(), $this->getParameter('app.jwtsecret'));
 
         $user->setToken($token);
 
