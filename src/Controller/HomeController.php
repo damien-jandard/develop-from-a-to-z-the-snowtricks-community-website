@@ -24,7 +24,7 @@ class HomeController extends AbstractController
             $mail->send('noreply@snowtricks.com', 'contact@snowtricks.com', 'Contact Snowtricks', 'contact', compact('contact'));
 
             $this->addFlash('success', 'Votre message a été envoyé avec succès, nous vous répondrons dans les plus brefs délais.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_home', ['_fragment' => 'header']);
         }
 
         $tricks = $trickRepository->findAll();

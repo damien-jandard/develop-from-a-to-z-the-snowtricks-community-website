@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Email;
 
 class ContactFormType extends AbstractType
 {
@@ -21,7 +22,17 @@ class ContactFormType extends AbstractType
             ->add('fullname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Votre nom',
+                    'placeholder' => 'Votre nom'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre nom.',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre nom doit contenir au moins {{ limit }} caractères',
+                        'max' => '255'
+                    ]),
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -30,11 +41,29 @@ class ContactFormType extends AbstractType
                     'placeholder' => 'Votre email',
                     'autocomplete' => 'email'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre email.',
+                    ]),
+                    new Email([
+                        'message' => 'Veuillez saisir une adresse email valide'
+                    ])
+                ],
             ])
             ->add('subject', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Sujet'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir le sujet de votre message.',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Votre sujet doit contenir au moins {{ limit }} caractères',
+                        'max' => '255'
+                    ]),
                 ],
             ])
             ->add('message', TextareaType::class, [

@@ -6,7 +6,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 offset-lg-2 mt-5 mt-lg-0">
-                {{ form_start(contactForm, {'attr': {'class': 'php-email-form'}}) }}
+                {{ form_start(contactForm, {'action': path('app_home', {'_fragment': 'contact'}), 'attr': {'class': 'php-email-form'}}) }}
                     <div class="row">
                         <div class="col-md-6 form-group">
                             {{ form_widget(contactForm.fullname) }}
