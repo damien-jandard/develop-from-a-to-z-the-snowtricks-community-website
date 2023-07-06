@@ -1459,6 +1459,10 @@ section {
   font-weight: 600;
 }
 
+.contact .php-email-form .error-message>ul {
+  margin-bottom: 0;
+}
+
 .contact .php-email-form .error-message br+br {
   margin-top: 25px;
 }
@@ -1500,6 +1504,11 @@ section {
 
 .contact .php-email-form input {
   height: 44px;
+}
+
+.contact .php-email-form .form-check-input {
+  height: 1rem;
+  width: 1rem;
 }
 
 .contact .php-email-form textarea {
