@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="dashboard" class="dashboard section-bg">
+        <div class="container">
+            <div class="section-title">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 mt-5 mt-lg-0">
+                    {{ form_start(userForm, {'attr': {'class': 'dashboard-form'}}) }}
+                        <div class="text-center form-group">
+                            {% if user.picture %}
+                                <img src="assets/img/uploads/{{ user.picture }}" class="dashboard-img" alt="Image de profil">
+                            {% else %}
+                                <img src="assets/img/defaut_user.jpg" class="dashboard-img" alt="Image de profil">
+                            {% endif %}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_label(userForm.username) }}
+                            {{ form_widget(userForm.username) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_label(userForm.email) }}
+                            {{ form_widget(userForm.email) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_label(userForm.newPassword.first) }}
+                            {{ form_widget(userForm.newPassword.first) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_label(userForm.newPassword.second) }}
+                            {{ form_widget(userForm.newPassword.second) }}
+                        </div>
+                        <div class="form-group mt-3">
+                            {{ form_label(userForm.picture) }}
+                            {{ form_widget(userForm.picture) }}
+                        </div>
+                        {% if not userForm.vars.valid %}
+                            <div class="error-message d-block mt-3">
+                                {{ form_errors(userForm.username) }}
+                                {{ form_errors(userForm.email) }}
+                                {{ form_errors(userForm.newPassword.first) }}
+                                {{ form_errors(userForm.picture) }}
+                            </div>
+                        {% endif %}
+                        <div class="text-center mt-3">
+                            <button type="submit">Mettre à jour <i class="bx bxs-save"></i></button>
+                        </div>
+                    {{ form_end(userForm) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
