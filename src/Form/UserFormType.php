@@ -61,7 +61,7 @@ class UserFormType extends AbstractType
                 ],
                 'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
                 'first_options' => [
-                    'label' => 'Mot de passe',
+                    'label' => 'Nouveau mot de passe',
                     'attr' => [
                         'class' => 'form-control',
                     ]
