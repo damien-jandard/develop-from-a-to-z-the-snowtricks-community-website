@@ -1054,7 +1054,8 @@ section {
 }
 
 .testimonials .testimonial-item .testimonial-img,
-.dashboard-img {
+.dashboard-img,
+.user-img {
   width: 100px;
   border-radius: 50%;
   border: 6px solid rgba(255, 255, 255, 0.15);
@@ -1796,4 +1797,102 @@ section {
 .authentication .authentication-form button[type=submit]:hover,
 .dashboard .dashboard-form button[type=submit]:hover {
   background: #61b959;
+}
+
+/*--------------------------------------------------------------
+# Banner Section
+--------------------------------------------------------------*/
+#banner {
+  width: 100%;
+  height: 50vh;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  padding: 0;
+}
+
+#banner .banner-container {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 15px;
+}
+
+#banner h1 {
+  margin: 0 0 30px 0;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56px;
+  color: #fff;
+}
+
+#banner h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/*--------------------------------------------------------------
+# Video
+--------------------------------------------------------------*/
+.video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/*--------------------------------------------------------------
+# Badge
+--------------------------------------------------------------*/
+.tag-badge {
+  padding: 5px 25px;
+  background: #eaf6e9;
+  color: #7cc576;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.trick-badge {
+  padding: 5px 25px;
+  font-weight: 600;
+}
+
+/*--------------------------------------------------------------
+# Messages
+--------------------------------------------------------------*/
+
+.messages-form button[type=submit] {
+  background: #7cc576;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.messages-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.messages-form .error-message>ul {
+  margin-bottom: 0;
+}
+
+.messages-form .error-message br+br {
+  margin-top: 25px;
 }
