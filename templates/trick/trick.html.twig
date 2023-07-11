@@ -44,9 +44,9 @@
                 <div class="col p-2">
                     <span class="trick-badge border">Créé le {{ trick.createdAt|date("d/m/Y \\à H:i:s") }}</span>
                 </div>
-                {% if trick.updatedAt > trick.createdAt %}
+                {% if trick.updatedAt %}
                     <div class="col p-2">
-                        <span class="trick-badge">Modifié le {{ trick.updatedAt|date("d/m/Y \\à H:i:s") }}</span>
+                        <span class="trick-badge border">Modifié le {{ trick.updatedAt|date("d/m/Y \\à H:i:s") }}</span>
                     </div>
                 {% endif %}
             </div>            
@@ -60,7 +60,7 @@
                 </div>
             </div>
             {% if is_granted('ROLE_USER') %}
-                {% include "message/new.html.twig" %}
+                {% include "message/_new.html.twig" %}
             {% endif %}
             {% for message in trick.messages %}
                 <div class="row border my-2">

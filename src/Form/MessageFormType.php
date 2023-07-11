@@ -21,6 +21,10 @@ class MessageFormType extends AbstractType
                     'placeholder' => 'Votre message',
                     'rows' => 5
                 ],
+                'help' => 'Votre message doit contenir au moins 10 caractères',
+                'help_attr' => [
+                    'class' => 'text-start text-info p-2'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre message.',
