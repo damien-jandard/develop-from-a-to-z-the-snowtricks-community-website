@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col">
+        {{ form_start(messageForm, {'action': path('app_trick_show', {'slug': trick.slug, '_fragment': 'message'}),'attr': {'class': 'messages-form'}}) }}
+            <div class="row text-center py-4">
+                <div class="col-md-9 form-group">
+                    {{ form_widget(messageForm.content) }}
+                    <small>{{ form_help(messageForm.content) }}</small>
+                </div>
+                <div class="col-md-3 form-group">
+                    <button type="submit">Laisser un message <i class="bx bx-mail-send"></i></button>
+                </div>
+            </div>
+            {% if not messageForm.vars.valid %}
+                <div class="row">
+                    <div class="error-message d-block">
+                        {{ form_errors(messageForm.content) }}
+                    </div>
+                </div>
+            {% endif %}
+        {{ form_end(messageForm) }}
+    </div>
+</div>

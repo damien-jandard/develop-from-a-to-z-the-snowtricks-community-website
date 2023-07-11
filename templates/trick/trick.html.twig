@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trick.name}} - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="banner" style="background-image: url('/assets/img/tricks/default-trick-img.png');">
+        <div class="banner-container">
+            <h1>Japan Air</h1>
+            <h2>Ajouté par Admin</h2>
+        </div>
+    </section>
+    <section class="portfolio">
+        <div class="container">
+            <div class="row portfolio-container my-3">
+                {% for picture in trick.pictures %}
+                    <div class="col-lg-4 col-md-6 portfolio-item">
+                        <img src="/assets/img/tricks/{{ picture.name }}" class="img-fluid" alt="">
+                    </div>
+                {% endfor %}
+                {% for video in trick.videos %}
+                    <div class="col-lg-4 col-md-6 portfolio-item">
+                        <iframe class="video" src="https://www.youtube.com/embed/{{ video.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    <div class="content pt-4">
+                        <div class="section-title">
+                            <h2>Description</h2>
+                        </div>
+                        <p>{{ trick.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 text-center">
+                {% for tag in trick.tags %}
+                    <div class="col p-2">
+                        <span class="tag-badge">{{ tag.name }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row pt-4 text-center">
+                <div class="col p-2">
+                    <span class="trick-badge border">Créé le {{ trick.createdAt|date("d/m/Y \\à H:i:s") }}</span>
+                </div>
+                {% if trick.updatedAt %}
+                    <div class="col p-2">
+                        <span class="trick-badge border">Modifié le {{ trick.updatedAt|date("d/m/Y \\à H:i:s") }}</span>
+                    </div>
+                {% endif %}
+            </div>            
+        </div>
+    </section>
+    <section id="message" class="section section-bg">
+        <div class="container">
+            <div class="content">
+                <div class="section-title">
+                    <h2>Commentaires</h2>
+                </div>
+            </div>
+            {% if is_granted('ROLE_USER') %}
+                {% include "message/_new.html.twig" %}
+            {% endif %}
+            {% for message in trick.messages %}
+                <div class="row border my-2">
+                    <div class="col-md-2 text-center">
+                        {% if message.user.picture %}
+                            <img src="/assets/img/uploads/{{ message.user.picture }}" class="user-img" alt="Image de profil {{ message.user.username }}">
+                        {% else %}
+                            <img src="/assets/img/defaut_user.jpg" class="user-img" alt="Image de profil">
+                        {% endif %}
+                        <p class="">{{ message.user.username }}</p>
+                    </div>
+                    <div class="col-md-10 my-auto">
+                        <p class="message-content text-center text-sm-center text-md-start">{{ message.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </div>
+    </section>
+{% endblock %}
