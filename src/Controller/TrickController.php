@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(#[CurrentUser] User $user, Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
+    public function show(#[CurrentUser] ?User $user, Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
         $message = new Message();
         $message->setUser($user);
