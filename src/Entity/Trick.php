@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
-#[UniqueEntity(fields: ['name', 'slug'], message: 'Le nom de la figure existe déjà')]
+#[UniqueEntity(fields: ['name'], message: 'Le nom de la figure existe déjà')]
 class Trick
 {
     #[ORM\Id]
