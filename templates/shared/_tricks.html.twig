@@ -9,9 +9,9 @@
                 <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                     <div class="portfolio-wrap">
                         {% if trick.pictures|first %}
-                            <img src="/assets/img/tricks/{{ trick.pictures|first.name }}" class="img-fluid" alt="Image principale du trick">
+                            <img src="/assets/img/uploads/{{ trick.pictures|first.name }}" class="img-fluid" alt="Image principale du trick">
                         {% else %}
-                            <img src="/assets/img/tricks/default-trick-img.png" class="img-fluid" alt="Image par défaut">
+                            <img src="/assets/img/default-trick-img.png" class="img-fluid" alt="Image par défaut">
                         {% endif %}
                         <div class="portfolio-info">
                             <h4>{{ trick.name }}</h4>

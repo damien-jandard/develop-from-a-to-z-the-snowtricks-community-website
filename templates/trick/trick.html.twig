@@ -3,10 +3,10 @@
 {% block title %}{{ trick.name}} - Snowtricks{% endblock %}
 
 {% block main %}
-    <section id="banner" style="background-image: url('/assets/img/tricks/default-trick-img.png');">
+    <section id="banner" style="background-image: url('/assets/img/{% if trick.pictures|first %}uploads/{{ trick.pictures|first.name }}{% else %}default-trick-img.png{% endif %}');">
         <div class="banner-container">
-            <h1>Japan Air</h1>
-            <h2>Ajouté par Admin</h2>
+            <h1>{{ trick.name }}</h1>
+            <h2>Ajouté par {{ trick.user.username }}</h2>
         </div>
     </section>
     <section class="portfolio">
@@ -14,7 +14,7 @@
             <div class="row portfolio-container my-3">
                 {% for picture in trick.pictures %}
                     <div class="col-lg-4 col-md-6 portfolio-item">
-                        <img src="/assets/img/tricks/{{ picture.name }}" class="img-fluid" alt="">
+                        <img src="/assets/img/uploads/{{ picture.name }}" class="img-fluid" alt="">
                     </div>
                 {% endfor %}
                 {% for video in trick.videos %}

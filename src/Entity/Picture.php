@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PictureRepository;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 class Picture
@@ -22,7 +23,7 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    private ?string $file = null;
+    private ?File $file = null;
 
     public function getId(): ?int
     {
@@ -53,12 +54,12 @@ class Picture
         return $this;
     }
 
-    public function getFile(): ?string
+    public function getFile(): ?File
     {
         return $this->file;
     }
 
-    public function setFile(string $file): static
+    public function setFile(File $file): static
     {
         $this->file = $file;
 

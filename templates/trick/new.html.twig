@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une figure - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="trick" class="trick section-bg">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ajout d'une figure</h2>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_start(trickForm, {'attr': {'class': 'trick-form'}}) }}
+                        <div class="form-group mt-3">
+                            {{ form_label(trickForm.name) }}
+                            {{ form_widget(trickForm.name) }}
+                            <div class="form-error text-danger">
+                                {{ form_errors(trickForm.name) }}
+                            </div>
+                        </div>
+                        <div class="pictures form-check mt-3" data-index="{{ trickForm.pictures|length > 0 ? trickForm.pictures|last.vars.name + 1 : 0 }}" data-prototype="{{ include('trick/_picture.html.twig', {pictureForm: trickForm.pictures.vars.prototype})|e("html_attr") }}">
+                            <button type="button" class="btn-new btn btn-primary btn-sm mt-3" data-collection-holder-class="pictures">Ajouter une image</button>
+                            {% for picture in trickForm.pictures %}
+                                {% if picture %}
+                                    {{ include('trick/_picture.html.twig', {pictureForm: picture}) }}
+                                {% else %}
+                                    {{ include('trick/_picture.html.twig') }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="videos form-check mt-3" data-index="{{ trickForm.videos|length > 0 ? trickForm.videos|last.vars.name + 1 : 0 }}" data-prototype="{{ include('trick/_video.html.twig', {videoForm: trickForm.videos.vars.prototype})|e("html_attr") }}">
+                            <button type="button" class="btn-new btn btn-primary btn-sm mt-3" data-collection-holder-class="videos">Ajouter une vidéo</button>
+                            {% for video in trickForm.videos %}
+                                {% if video %}
+                                    {{ include('trick/_video.html.twig', {videoForm: video}) }}
+                                {% else %}
+                                    {{ include('trick/_video.html.twig') }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if not trickForm.vars.valid %}
+                            <div class="form-error text-danger mt-3">
+                                {{ form_errors(trickForm) }}
+                            </div>
+                        {% endif %}
+                        <div class="form-group mt-3">
+                            {{ form_label(trickForm.description) }}
+                            {{ form_widget(trickForm.description) }}
+                            <div class="form-error text-danger">
+                                {{ form_errors(trickForm.description) }}
+                            </div>
+                        </div>
+                        <div class="form-check mt-3">
+                            {{ form_label(trickForm.tags) }}
+                            {{ form_widget(trickForm.tags) }}
+                            <div class="form-error text-danger">
+                                {{ form_errors(trickForm.tags) }}
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <button type="submit">Ajouter la figure</button>
+                        </div>
+                    {{ form_end(trickForm) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
