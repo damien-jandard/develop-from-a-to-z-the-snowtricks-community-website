@@ -20,6 +20,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/trick', name: 'app_trick_')]
 class TrickController extends AbstractController
 {
+    #[Route('/delete/{slug}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Trick $trick, TrickRepository $trickRepository, UploadService $uploadService): Response
+    {
+        if ($this->isCsrfTokenValid(sprintf('delete%s', $trick->getSlug()), $request->request->get('_token'))) {
+            $uploadService->removePictures($trick);
+            $trickRepository->remove($trick, true);
+            $this->addFlash('success', 'La figure a été supprimée.');
+        }
+        
+        return $this->redirectToRoute('app_home');
+    }
+
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(#[CurrentUser] User $user, Request $request, SluggerInterface $slugger, UploadService $uploadService, TrickRepository $trickRepository): Response
     {

@@ -55,4 +55,13 @@ class UploadService
             }
         }
     }
+
+    public function removePictures(Trick $trick): void
+    {
+        foreach ($trick->getPictures() as $picture) {
+            if (file_exists($this->getTargetDirectory() . $picture->getName())) {
+                unlink($this->getTargetDirectory() . $picture->getName());
+            }
+        }
+    }
 }
