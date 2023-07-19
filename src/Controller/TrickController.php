@@ -24,6 +24,8 @@ class TrickController extends AbstractController
     #[Route('/delete/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository, UploadService $uploadService): Response
     {
+        $this->denyAccessUnlessGranted('CAN_DELETE', $trick, 'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName());
+        
         if ($this->isCsrfTokenValid(sprintf('delete%s', $trick->getSlug()), $request->request->get('_token'))) {
             $uploadService->removePictures($trick);
             $trickRepository->remove($trick, true);
@@ -36,6 +38,8 @@ class TrickController extends AbstractController
     #[Route('/edit/{slug}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(#[CurrentUser] User $user, Request $request, Trick $trick, UploadService $uploadService, TrickRepository $trickRepository): Response
     {        
+        $this->denyAccessUnlessGranted('CAN_EDIT', $trick, 'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName());
+        
         $form = $this->createForm(TrickFormType::class, $trick, ['validation_groups' => 'edit'])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
