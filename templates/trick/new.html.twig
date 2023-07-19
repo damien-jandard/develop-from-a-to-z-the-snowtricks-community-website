@@ -12,7 +12,9 @@
                 <div class="col">
                     {{ form_start(trickForm, {'attr': {'class': 'trick-form'}}) }}
                         <div class="form-group mt-3">
-                            {{ form_label(trickForm.name) }}
+                            <div class="section-title text-start pb-0">
+                                <h2>{{ form_label(trickForm.name) }}</h2>
+                            </div>
                             {{ form_widget(trickForm.name) }}
                             <div class="form-error text-danger">
                                 {{ form_errors(trickForm.name) }}
@@ -44,14 +46,18 @@
                             </div>
                         {% endif %}
                         <div class="form-group mt-3">
-                            {{ form_label(trickForm.description) }}
+                            <div class="section-title text-start pb-0">
+                                <h2>{{ form_label(trickForm.description) }}</h2>
+                            </div>
                             {{ form_widget(trickForm.description) }}
                             <div class="form-error text-danger">
                                 {{ form_errors(trickForm.description) }}
                             </div>
                         </div>
                         <div class="form-check mt-3">
-                            {{ form_label(trickForm.tags) }}
+                            <div class="section-title text-start pb-0">
+                                <h2>{{ form_label(trickForm.tags) }}</h2>
+                            </div>
                             {{ form_widget(trickForm.tags) }}
                             <div class="form-error text-danger">
                                 {{ form_errors(trickForm.tags) }}
