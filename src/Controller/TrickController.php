@@ -9,6 +9,7 @@ use App\Form\MessageFormType;
 use App\Form\TrickFormType;
 use App\Repository\TrickRepository;
 use App\Service\UploadService;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +33,32 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+    #[Route('/edit/{slug}', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(#[CurrentUser] User $user, Request $request, Trick $trick, UploadService $uploadService, TrickRepository $trickRepository): Response
+    {        
+        $form = $this->createForm(TrickFormType::class, $trick, ['validation_groups' => 'edit'])->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setUpdatedAt(new DateTimeImmutable());
+            $uploadService->uploadPictures($trick);
+            $uploadService->uploadVideos($trick);
+            $trickRepository->save($trick, true);
+
+            $this->addFlash('success', 'La figure a été mise à jour.');
+            return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
+        }
+        
+        return $this->render('trick/edit.html.twig', [
+            'trick' => $trick,
+            'trickForm' => $form,
+        ]);
+    }
+
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(#[CurrentUser] User $user, Request $request, SluggerInterface $slugger, UploadService $uploadService, TrickRepository $trickRepository): Response
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickFormType::class, $trick)->handleRequest($request);
+        $form = $this->createForm(TrickFormType::class, $trick, ['validation_groups' => 'new'])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUser($user);

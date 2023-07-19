@@ -30,11 +30,19 @@ class TrickFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir le nom de la figure.',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                     new Length([
                         'min' => 2,
                         'minMessage' => 'Le nom de la figure doit contenir au moins {{ limit }} caractères',
-                        'max' => '255'
+                        'max' => '255',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                 ],
             ])
@@ -47,11 +55,19 @@ class TrickFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez décrire la figure.',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                     new Length([
                         'min' => 20,
                         'minMessage' => 'La description de la figure doit contenir au moins {{ limit }} caractères',
-                        'max' => '4096'
+                        'max' => '4096',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                 ],
             ])
@@ -66,6 +82,10 @@ class TrickFormType extends AbstractType
                     new Count([
                         'min' => 1,
                         'minMessage' => 'Vous devez sélectionner au moins un tag',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ])
                 ]
             ])
@@ -88,6 +108,10 @@ class TrickFormType extends AbstractType
                     new Count([
                         'min' => 1,
                         'minMessage' => 'Vous devez ajouter au moins une image',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                     new Valid()
                 ],
@@ -108,6 +132,10 @@ class TrickFormType extends AbstractType
                     new Count([
                         'min' => 1,
                         'minMessage' => 'Vous devez ajouter au moins une vidéo',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                     new Valid()
                 ],

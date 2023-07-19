@@ -23,7 +23,10 @@ class PictureFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotNull([
-                        'message' => 'Veuillez sélectionner une image'
+                        'message' => 'Veuillez sélectionner une image',
+                        'groups' => [
+                            'new'
+                        ]
                     ]),
                     new File([
                         'maxSize' => '5M',
@@ -33,7 +36,11 @@ class PictureFormType extends AbstractType
                             'jpeg' => ['image/jpeg', 'image/jpg'],
                             'png' => 'image/png'
                         ],
-                        'extensionsMessage' => 'L\'extension du fichier est invalide ({{ extension }}). Les extensions autorisées sont {{ extensions }}'
+                        'extensionsMessage' => 'L\'extension du fichier est invalide ({{ extension }}). Les extensions autorisées sont {{ extensions }}',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ])
                 ]
             ])

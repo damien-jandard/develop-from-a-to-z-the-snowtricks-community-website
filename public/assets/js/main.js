@@ -21,3 +21,5 @@ const addFormToCollection = (e) => {
 document.querySelectorAll('.btn-new').forEach(btn => { btn.addEventListener("click", addFormToCollection)});
 
 document.querySelectorAll('.btn-remove').forEach(btn => btn.addEventListener("click", (e) => e.currentTarget.closest(".row").remove()));
+
+document.querySelectorAll('.btn-remove-edit').forEach(btn => btn.addEventListener("click", (e) => e.currentTarget.closest(".portfolio-item").remove()));

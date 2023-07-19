@@ -39,6 +39,8 @@ class UploadService
         foreach ($trick->getPictures() as $picture) {
             if ($picture->getFile() !== null) {
                 $picture->setName($this->upload($picture->getFile()));
+            }elseif ($picture->getName() === null && $picture->getFile() === null) {
+                $trick->removePicture($picture);
             }
         }
     }
@@ -51,7 +53,7 @@ class UploadService
 
             if ($host === 'www.youtube.com' && array_key_exists('v', $videoId)) {
                 $video->setVideoId($videoId['v']);
-                $video->setPlatform($host);
+                $video->setPlatform('youtube');
             }
         }
     }

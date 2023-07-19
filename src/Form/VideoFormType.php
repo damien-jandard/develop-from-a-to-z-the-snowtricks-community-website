@@ -23,11 +23,18 @@ class VideoFormType extends AbstractType
                 'label' => false,
                 'constraints' => [
                     new NotNull([
-                        'message' => 'Veuillez saisir une url Youtube'
+                        'message' => 'Veuillez saisir une url Youtube',
+                        'groups' => [
+                            'new'
+                        ]
                     ]),
                     new Regex([
                         'pattern' => '/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/',
-                        'message' => 'Merci de saisir une URL provenant de Youtube'
+                        'message' => 'Merci de saisir une URL provenant de Youtube',
+                        'groups' => [
+                            'new',
+                            'edit'
+                        ]
                     ]),
                 ],
             ])
