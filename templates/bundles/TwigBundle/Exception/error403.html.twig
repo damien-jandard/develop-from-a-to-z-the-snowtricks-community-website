@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Erreur 403 - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="error">
+        <div class="container">
+            <h1>Erreur 403 - Accès interdit</h1>
+            <p>Oh non ! Vous avez atteint une zone restreinte. Cette section du site est réservée aux utilisateurs autorisés uniquement.</p>
+            <p>Si vous pensez qu'il s'agit d'une erreur, veuillez contacter notre équipe d'assistance pour obtenir de l'aide. Sinon, vous pouvez revenir à la page d'accueil pour explorer d'autres parties de notre site.</p>
+            <p>Si vous avez besoin d'aide supplémentaire, n'hésitez pas à nous contacter. Nous serions ravis de vous aider à trouver ce que vous cherchez.</p>
+            <a href="{{ path('app_home') }}" class="btn-home"><i class="bx bxs-home"></i> Accueil</a>
+        </div>
+    </section>
+{% endblock %}
+

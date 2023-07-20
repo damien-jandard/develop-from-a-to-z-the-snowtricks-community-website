@@ -2020,3 +2020,61 @@ section {
   background: #fff;
   color: #b02a37;
 }
+
+/*--------------------------------------------------------------
+# Error Section
+--------------------------------------------------------------*/
+#error h1 {
+  margin: 0 0 30px 0;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 56px;
+  color: #000;
+}
+
+#error p {
+  color: #3f3838;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+#error ul>li {
+  color: #3f3838;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+#error .btn-home {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 14px 30px;
+  border-radius: 3px;
+  color: #fff;
+  background: #7cc576;
+}
+
+#error .btn-home:hover {
+  transition: 0.5s;
+  background: #9ed49a;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #error h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  #error p,
+  #error ul>li {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
