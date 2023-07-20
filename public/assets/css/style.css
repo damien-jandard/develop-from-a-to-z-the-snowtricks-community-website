@@ -1723,7 +1723,8 @@ section {
 # Form
 --------------------------------------------------------------*/
 .authentication .authentication-form,
-.dashboard .dashboard-form {
+.dashboard .dashboard-form,
+.trick .trick-form {
   width: 100%;
   background: #fff;
   padding: 20px;
@@ -1731,12 +1732,14 @@ section {
 }
 
 .authentication .authentication-form .form-group,
-.dashboard .dashboard-form .form-group {
+.dashboard .dashboard-form .form-group,
+.trick .trick-form .form-group {
   padding-bottom: 8px;
 }
 
 .authentication .authentication-form .error-message,
-.dashboard .dashboard-form .error-message {
+.dashboard .dashboard-form .error-message,
+.trick .trick-form .error-message {
   display: none;
   color: #fff;
   background: #ed3c0d;
@@ -1746,19 +1749,23 @@ section {
 }
 
 .authentication .authentication-form .error-message>ul,
-.dashboard .dashboard-form .error-message>ul {
+.dashboard .dashboard-form .error-message>ul,
+.trick .trick-form .error-message>ul {
   margin-bottom: 0;
 }
 
 .authentication .authentication-form .error-message br+br,
-.dashboard .dashboard-form .error-message br+br {
+.dashboard .dashboard-form .error-message br+br,
+.trick .trick-form .error-message br+br {
   margin-top: 25px;
 }
 
 .authentication .authentication-form input,
 .authentication .authentication-form textarea,
 .dashboard .dashboard-form input,
-.dashboard .dashboard-form textarea {
+.dashboard .dashboard-form textarea,
+.trick .trick-form input,
+.trick .trick-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1769,7 +1776,8 @@ section {
 }
 
 .authentication .authentication-form .form-check-input,
-.dashboard .dashboard-form .form-check-input {
+.dashboard .dashboard-form .form-check-input,
+.trick .trick-form .form-check-input {
   height: 1rem;
   width: 1rem;
 }
@@ -1780,12 +1788,14 @@ section {
 }
 
 .authentication .authentication-form textarea,
-.dashboard .dashboard-form textarea {
+.dashboard .dashboard-form textarea,
+.trick .trick-form textarea {
   padding: 10px 12px;
 }
 
 .authentication .authentication-form button[type=submit],
-.dashboard .dashboard-form button[type=submit] {
+.dashboard .dashboard-form button[type=submit],
+.trick .trick-form button[type=submit] {
   background: #7cc576;
   border: 0;
   padding: 10px 24px;
@@ -1795,7 +1805,8 @@ section {
 }
 
 .authentication .authentication-form button[type=submit]:hover,
-.dashboard .dashboard-form button[type=submit]:hover {
+.dashboard .dashboard-form button[type=submit]:hover,
+.trick .trick-form button[type=submit]:hover {
   background: #61b959;
 }
 
@@ -1850,6 +1861,12 @@ section {
   aspect-ratio: 16 / 9;
 }
 
+.video-edit {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
 /*--------------------------------------------------------------
 # Badge
 --------------------------------------------------------------*/
@@ -1895,4 +1912,46 @@ section {
 
 .messages-form .error-message br+br {
   margin-top: 25px;
+}
+
+/*--------------------------------------------------------------
+# Trick Section
+--------------------------------------------------------------*/
+
+.trick .trick-form input[type=checkbox] {
+  margin-right: 0.2rem;
+}
+
+.trick .trick-form input[type=checkbox]:checked {
+  background-color: #18d26e;
+}
+
+.trick .trick-form .form-check {
+  padding-left: 0px;
+}
+
+.trick .trick-form label {
+  font-size: 14px;
+  margin-right: 1rem;
+}
+
+/*--------------------------------------------------------------
+# Form Error
+--------------------------------------------------------------*/
+.form-error {
+  font-size: 14px;
+}
+
+.form-error>ul {
+  margin-bottom: 0px;
+}
+
+/*--------------------------------------------------------------
+# Background Image
+--------------------------------------------------------------*/
+.background-image {
+  height: 50vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }

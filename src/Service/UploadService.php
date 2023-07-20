@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Trick;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -25,12 +26,44 @@ class UploadService
         } catch (FileException $e) {
             throw new FileException($e);
         }
-
         return $fileName;
     }
 
     public function getTargetDirectory(): string
     {
         return $this->targetDirectory;
+    }
+
+    public function uploadPictures(Trick $trick): void
+    {
+        foreach ($trick->getPictures() as $picture) {
+            if ($picture->getFile() !== null) {
+                $picture->setName($this->upload($picture->getFile()));
+            }elseif ($picture->getName() === null && $picture->getFile() === null) {
+                $trick->removePicture($picture);
+            }
+        }
+    }
+
+    public function uploadVideos(Trick $trick): void
+    {
+        foreach ($trick->getVideos() as $video) {
+            $host = parse_url($video->getVideoId(), PHP_URL_HOST);
+            parse_str(parse_url($video->getVideoId(), PHP_URL_QUERY), $videoId);
+
+            if ($host === 'www.youtube.com' && array_key_exists('v', $videoId)) {
+                $video->setVideoId($videoId['v']);
+                $video->setPlatform('youtube');
+            }
+        }
+    }
+
+    public function removePictures(Trick $trick): void
+    {
+        foreach ($trick->getPictures() as $picture) {
+            if (file_exists($this->getTargetDirectory() . $picture->getName())) {
+                unlink($this->getTargetDirectory() . $picture->getName());
+            }
+        }
     }
 }

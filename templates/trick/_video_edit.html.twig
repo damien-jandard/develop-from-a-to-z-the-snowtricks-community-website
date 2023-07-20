@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col">
+        {% if video.vars.data.id is not null and 'youtube.com' not in videoForm.vars.data.videoId %}
+            {{ form_widget(videoForm.videoId, {'value': 'https://www.youtube.com/watch?v=' ~ videoForm.vars.data.videoId }) }}
+        {% else %}
+            {{ form_widget(videoForm.videoId) }}
+        {% endif %}
+        <div class="form-error text-danger mt-2">
+            {{ form_errors(videoForm.videoId) }}
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col">
+        <button type="button" class="btn btn-danger btn-sm btn-remove-edit">Supprimer</button>
+    </div>
+</div>
