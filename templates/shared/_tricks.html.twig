@@ -3,15 +3,20 @@
         <div class="section-title">
             <h2>Tricks</h2>
             <p>Envolez-vous vers de nouveaux sommets de sensations avec nos tricks époustouflants, où l'audace et la maîtrise s'unissent pour repousser les limites de la glisse.</p>
+            {% if app.user %}
+                <div class="pt-4">
+                    <a href="{{ path('app_trick_new') }}" class="add-trick" title="Ajouter une figure">Ajouter une figure <i class="bx bx-plus"></i></a>
+                </div>
+            {% endif %}
         </div>
         <div class="row portfolio-container">
             {% for trick in tricks %}
                 <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                     <div class="portfolio-wrap">
                         {% if trick.pictures|first %}
-                            <img src="/assets/img/uploads/{{ trick.pictures|first.name }}" class="img-fluid" alt="Image principale du trick">
+                            <img src="{{ asset('assets/img/uploads/') }}{{ trick.pictures|first.name }}" class="img-fluid" alt="Image principale du trick">
                         {% else %}
-                            <img src="/assets/img/default-trick-img.png" class="img-fluid" alt="Image par défaut">
+                            <img src="{{ asset('assets/img/default-trick-img.png') }}" class="img-fluid" alt="Image par défaut">
                         {% endif %}
                         <div class="portfolio-info">
                             <h4>{{ trick.name }}</h4>

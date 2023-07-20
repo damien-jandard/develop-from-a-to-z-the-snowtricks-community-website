@@ -5,11 +5,13 @@
 		</div>
 		<nav id="navbar" class="navbar">
 			<ul>
-				{% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/' %}
+				{% if app.request.attributes.get('_route') == 'app_home' %}
 					<li><a class="nav-link scrollto" href="#about">A propos</a></li>
 					<li><a class="nav-link scrollto" href="#tricks">Tricks</a></li>
 					<li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
 					<li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+				{% else %}
+					<li><a class="nav-link" href="{{ path('app_home') }}">Home<i class="bx bxs-home"></i></a></li>
 				{% endif %}
 				{% if app.user %}
 					<li><a class="nav-link" href="{{ path('app_dashboard') }}">Dashboard<i class="bx bxs-dashboard"></i></a></li>
