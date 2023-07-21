@@ -48,7 +48,7 @@ class MessageRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('m')
             ->andWhere('m.trick = :trick')
             ->setParameter('trick', $trick)
-            ->orderBy('m.createdAt', 'ASC')
+            ->orderBy('m.createdAt', 'DESC')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
             ->getQuery()
