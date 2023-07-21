@@ -69,7 +69,7 @@
             {% if is_granted('ROLE_USER') %}
                 {% include "message/_new.html.twig" %}
             {% endif %}
-            {% for message in trick.messages %}
+            {% for message in messages %}
                 <div class="row border my-2">
                     <div class="col-md-2 text-center">
                         {% if message.user.picture %}
@@ -84,7 +84,16 @@
                     </div>
                 </div>
             {% endfor %}
-            
+            <div class="row mt-4">
+                <div class="col text-center mt-4">
+                    {% if previous >= 0 %}
+                        <a href="{{ path('app_trick_show', {'slug': trick.slug, offset: previous }) }}" class="paginator-link"><i class="bx bx-skip-previous-circle"></i> Précédent</a>
+                    {% endif %}
+                    {% if next < messages|length %}
+                        <a href="{{ path('app_trick_show', {'slug': trick.slug, offset: next }) }}" class="paginator-link">Suivant <i class="bx bx-skip-next-circle"></i></a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </section>
     <div class="modal fade" id="trick{{ trick.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="auto" aria-labelledby="trickLabel{{ trick.id }}" aria-hidden="true">

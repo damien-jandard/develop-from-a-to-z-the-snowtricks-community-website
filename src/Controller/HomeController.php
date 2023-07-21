@@ -15,6 +15,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
     public function home(Request $request, TrickRepository $trickRepository, SendMailService $mail): Response
     {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $trickRepository->getTrickPaginator($offset);
+        
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
 
@@ -27,10 +30,11 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_home', ['_fragment' => 'header']);
         }
 
-        $tricks = $trickRepository->findAll();
         return $this->render('home/home.html.twig', [
             'contactForm' => $form->createView(),
-            'tricks' => $tricks
+            'tricks' => $paginator,
+            'previous' => $offset - TrickRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + TrickRepository::PAGINATOR_PER_PAGE)
         ]);
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\Trick;
 use App\Entity\Message;
 use App\Form\MessageFormType;
 use App\Form\TrickFormType;
+use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
 use App\Service\UploadService;
 use DateTimeImmutable;
@@ -83,8 +84,11 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(#[CurrentUser] ?User $user, Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
+    public function show(#[CurrentUser] ?User $user, Request $request, Trick $trick, EntityManagerInterface $entityManager, MessageRepository $messageRepository): Response
     {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $messageRepository->getMessagePaginator($trick, $offset);
+        
         $message = new Message();
         $message->setUser($user);
         $message->setTrick($trick);
@@ -101,6 +105,9 @@ class TrickController extends AbstractController
         return $this->render('trick/trick.html.twig', [
             'trick' => $trick,
             'messageForm' => $form,
+            'messages' => $paginator,
+            'previous' => $offset - MessageRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + MessageRepository::PAGINATOR_PER_PAGE)
         ]);
     }
 }
