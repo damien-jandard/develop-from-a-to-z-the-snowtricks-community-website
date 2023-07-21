@@ -9,6 +9,12 @@
             <h1>{{ trick.name }}</h1>
             <h2>Ajouté par {{ trick.user.username }}</h2>
         </div>
+        {% if app.user %}
+            {% if trick.user.id == app.user.id %}
+                <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}" class="edit-trick" title="Modifier"><i class="bx bxs-edit-alt"></i></a>
+                <a href="#" class="delete-trick" title="Supprimer" data-bs-toggle="modal" data-bs-target="#trick{{ trick.id }}"><i class="bx bxs-trash-alt"></i></a>
+            {% endif %}
+        {% endif %}
     </section>
     <section class="portfolio">
         <div class="container">
@@ -81,4 +87,24 @@
             
         </div>
     </section>
+    <div class="modal fade" id="trick{{ trick.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="auto" aria-labelledby="trickLabel{{ trick.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="trickLabel{{ trick.id }}">{{ trick.name }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir supprimer cette figure ?
+                </div>
+                <form method="post" action="{{ path('app_trick_delete', {'slug': trick.slug}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.slug) }}">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
+                        <button type="submit" class="btn btn-danger">Oui</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

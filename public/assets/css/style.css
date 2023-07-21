@@ -1955,3 +1955,68 @@ section {
   object-fit: cover;
   object-position: center;
 }
+
+/*--------------------------------------------------------------
+# Add trick link
+--------------------------------------------------------------*/
+.add-trick {
+  background: #7cc576;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.add-trick:hover {
+  background: #61b959;
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Edit trick link
+--------------------------------------------------------------*/
+#banner .edit-trick {
+  position: absolute;
+  right: 65px;
+  top: 15px;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 3px;
+  margin: 10px;
+  color: #fff;
+  background: #7cc576;
+}
+
+#banner .edit-trick:hover {
+  transition: 0.5s;
+  background: #fff;
+  color: #7cc576;
+}
+
+/*--------------------------------------------------------------
+# Delete trick link
+--------------------------------------------------------------*/
+#banner .delete-trick {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 3px;
+  margin: 10px;
+  color: #fff;
+  background: #dc3545;
+}
+
+#banner .delete-trick:hover {
+  transition: 0.5s;
+  background: #fff;
+  color: #b02a37;
+}

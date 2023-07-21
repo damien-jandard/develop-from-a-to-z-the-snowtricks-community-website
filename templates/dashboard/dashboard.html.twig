@@ -13,9 +13,9 @@
                     {{ form_start(userForm, {'attr': {'class': 'dashboard-form'}}) }}
                         <div class="text-center form-group">
                             {% if user.picture %}
-                                <img src="assets/img/uploads/{{ user.picture }}" class="dashboard-img" alt="Image de profil">
+                                <img src="{{ asset('assets/img/uploads/') }}{{ user.picture }}" class="dashboard-img" alt="Image de profil">
                             {% else %}
-                                <img src="assets/img/defaut_user.jpg" class="dashboard-img" alt="Image de profil">
+                                <img src="{{ asset('assets/img/defaut_user.jpg') }}" class="dashboard-img" alt="Image de profil">
                             {% endif %}
                         </div>
                         <div class="form-group mt-3">
