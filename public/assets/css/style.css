@@ -2078,3 +2078,20 @@ section {
     line-height: 22px;
   }
 }
+
+/*--------------------------------------------------------------
+# Paginator link
+--------------------------------------------------------------*/
+.paginator-link {
+  background: #7cc576;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.paginator-link:hover {
+  background: #61b959;
+  color: #fff;
+}

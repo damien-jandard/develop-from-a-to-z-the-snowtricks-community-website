@@ -62,6 +62,18 @@
                     </div>
                 </div>
             {% endfor %}
+
+            <div class="row">
+                <div class="col text-center">
+                    {% if previous >= 0 %}
+                        <a href="{{ path('app_home', { offset: previous }) }}" class="paginator-link"><i class="bx bx-skip-previous-circle"></i> Précédent</a>
+                    {% endif %}
+                    {% if next < tricks|length %}
+                        <a href="{{ path('app_home', { offset: next }) }}" class="paginator-link">Suivant <i class="bx bx-skip-next-circle"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            
         </div>
     </div>
 </section>
