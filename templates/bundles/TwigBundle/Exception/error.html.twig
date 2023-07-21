@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Erreur {{ status_code }} - Snowtricks{% endblock %}
+
+{% block main %}
+    <section id="error">
+        <div class="container">
+            <h1>Erreur {{ status_code }} - Quelque chose a mal tourné</h1>
+            <p>Oh non ! Il semble y avoir un problème technique qui nous échappe.</p>
+            <p>{{ status_text }}</p>
+            <p>Si vous avez besoin d'aide supplémentaire, n'hésitez pas à nous contacter. Nous serions ravis de vous aider à trouver ce que vous cherchez.</p>
+            <a href="{{ path('app_home') }}" class="btn-home"><i class="bx bxs-home"></i> Accueil</a>
+        </div>
+    </section>
+{% endblock %}
