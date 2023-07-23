@@ -32,9 +32,8 @@
             {% include "shared/_footer.html.twig" %}
         {% endblock %}
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bx bx-up-arrow-alt"></i></a>
-        {% block javascripts %}
-            <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('assets/js/main.js') }}"></script>
-        {% endblock %}
+        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
+        {% block javascripts %}{% endblock %}
 	</body>
 </html>
