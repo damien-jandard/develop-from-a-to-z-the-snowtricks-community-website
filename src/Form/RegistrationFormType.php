@@ -43,14 +43,14 @@ class RegistrationFormType extends AbstractType
                 ],
                 'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
                 'first_options' => [
-                    
+
                     'attr' => [
                         'class' => 'form-control',
                         'placeholder' => 'Mot de passe'
                     ]
                 ],
                 'second_options' => [
-                    
+
                     'attr' => [
                         'class' => 'form-control',
                         'placeholder' => 'Confirmation du mot de passe'
@@ -66,7 +66,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            
+
             ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'En cliquant sur le bouton d\'inscription, vous consentez à la collecte et au traitement de vos données personnelles conformément à notre politique de confidentialité et aux exigences du Règlement Général sur la Protection des Données (RGPD).',

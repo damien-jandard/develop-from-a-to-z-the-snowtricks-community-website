@@ -23,14 +23,14 @@ class ResetPasswordFormType extends AbstractType
             ],
             'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
             'first_options' => [
-                
+
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Nouveau mot de passe'
                 ]
             ],
             'second_options' => [
-                
+
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Confirmation du nouveau mot de passe'

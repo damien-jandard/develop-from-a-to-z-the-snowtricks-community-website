@@ -139,7 +139,7 @@ class TrickFormType extends AbstractType
                     ]),
                     new Valid()
                 ],
-            ])            
+            ])
         ;
     }
 

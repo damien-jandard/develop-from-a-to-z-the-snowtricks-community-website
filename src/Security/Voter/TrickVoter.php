@@ -11,16 +11,21 @@ class TrickVoter extends Voter
     public const EDIT = 'CAN_EDIT';
     public const DELETE = 'CAN_DELETE';
 
-    protected function supports(string $attribute, mixed $subject): bool
-    {
+    protected function supports(
+        string $attribute,
+        mixed $subject
+    ): bool {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT, self::DELETE])
             && $subject instanceof \App\Entity\Trick;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
-    {
+    protected function voteOnAttribute(
+        string $attribute,
+        mixed $subject,
+        TokenInterface $token
+    ): bool {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {

@@ -12,8 +12,11 @@ class JWTService
      * @param integer $validity
      * @return string
      */
-    public function generate(string|array $payload, string $secret, int $validity = 10800): string
-    {
+    public function generate(
+        string|array $payload,
+        string $secret,
+        int $validity = 10800
+    ): string {
         $header = [
             'alg' => 'HS256',
             'typ' => 'JWT'
@@ -25,10 +28,10 @@ class JWTService
             $payload['user_email'] = $email;
         }
 
-        if($validity > 0){
+        if ($validity > 0) {
             $now = new \DateTimeImmutable();
             $exp = $now->getTimestamp() + $validity;
-    
+
             $payload['iat'] = $now->getTimestamp();
             $payload['exp'] = $exp;
         }
@@ -52,29 +55,33 @@ class JWTService
         return $jwt;
     }
 
-    public function isValid(string $token): bool
-    {
+    public function isValid(
+        string $token
+    ): bool {
         return preg_match('/^[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+$/', $token) === 1;
     }
 
-    public function getHeader(string $token): array
-    {
+    public function getHeader(
+        string $token
+    ): array {
         $array = explode('.', $token);
         $header = json_decode(base64_decode($array[0]), true);
 
         return $header;
     }
 
-    public function getPayLoad(string $token): array
-    {
+    public function getPayLoad(
+        string $token
+    ): array {
         $array = explode('.', $token);
         $payload = json_decode(base64_decode($array[1]), true);
 
         return $payload;
     }
 
-    public function isExpired(string $token): bool
-    {
+    public function isExpired(
+        string $token
+    ): bool {
         $payload = $this->getPayLoad($token);
 
         $now = new \DateTimeImmutable();
@@ -82,8 +89,10 @@ class JWTService
         return $payload['exp'] < $now->getTimestamp();
     }
 
-    public function check(string $token, string $secret)
-    {
+    public function check(
+        string $token,
+        string $secret
+    ): bool {
         $header = $this->getHeader($token);
         $payload = $this->getPayLoad($token);
 

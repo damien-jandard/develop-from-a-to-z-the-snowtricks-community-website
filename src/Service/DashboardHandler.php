@@ -10,12 +10,17 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DashboardHandler implements DashboardHandlerInterface
 {
-    public function __construct(private readonly UploadService $uploadService, private readonly UserPasswordHasherInterface $userPasswordHasher, private readonly EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        private readonly UploadService $uploadService,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly EntityManagerInterface $entityManager
+    ) {
     }
 
-    public function __invoke(Form $form, User $user): void
-    {
+    public function __invoke(
+        Form $form,
+        User $user
+    ): void {
         $newPassword = $form->get('newPassword')->getData();
         if ($newPassword) {
             $user->setPassword(
