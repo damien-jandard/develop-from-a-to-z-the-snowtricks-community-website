@@ -1,5 +1,9 @@
 # Develop the SnowTricks community website from A to Z
 
+Project number six completed as part of my OpenClassrooms training.
+
+[![SymfonyInsight](https://insight.symfony.com/projects/d75197a6-ec64-4e80-82bc-cab190e3f047/big.svg)](https://insight.symfony.com/projects/d75197a6-ec64-4e80-82bc-cab190e3f047)
+
 ### Requirements
 
  * PHP 8.1
