@@ -10,7 +10,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UploadService
 {
     public function __construct(
-        private $targetDirectory,
+        private string $targetDirectory,
         private SluggerInterface $slugger,
     ) {
     }
