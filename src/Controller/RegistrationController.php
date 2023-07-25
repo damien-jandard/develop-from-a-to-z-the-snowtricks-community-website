@@ -19,8 +19,15 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator,
+        UserAuthenticator $authenticator,
+        EntityManagerInterface $entityManager,
+        SendMailService $mail,
+        JWTService $jwt
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -40,10 +47,19 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            
-            $mail->send('noreply@snowtricks.com', $user->getEmail(), 'Activation de votre compte Snowtricks', 'register', compact('user', 'token'));
 
-            $this->addFlash('info', 'Un email vous a été envoyé afin d\'activer votre compte.');
+            $mail->send(
+                'noreply@snowtricks.com',
+                $user->getEmail(),
+                'Activation de votre compte Snowtricks',
+                'register',
+                compact('user', 'token')
+            );
+
+            $this->addFlash(
+                'info',
+                'Un email vous a été envoyé afin d\'activer votre compte.'
+            );
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -57,8 +73,12 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/check/{token}', name: 'app_check_activation', methods: ['GET'])]
-    public function checkActivation(string $token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
-    {
+    public function checkActivation(
+        string $token,
+        JWTService $jwt,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
         if ($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $jwt->getPayLoad($token);
 
@@ -70,29 +90,44 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Votre compte utilisateur est désormais activé.');
+                $this->addFlash(
+                    'success',
+                    'Votre compte utilisateur est désormais activé.'
+                );
                 return $this->redirectToRoute('app_home');
             }
         }
 
-        $this->addFlash('danger', 'Le token est invalide ou a expiré.');
+        $this->addFlash(
+            'danger',
+            'Le token est invalide ou a expiré.'
+        );
         return $this->redirectToRoute('app_home');
     }
 
     #[Route('/activation', name: 'app_resend_activation', methods: ['GET'])]
-    public function resendActivation(JWTService $jwt, SendMailService $mail, EntityManagerInterface $entityManager): Response
-    {
+    public function resendActivation(
+        JWTService $jwt,
+        SendMailService $mail,
+        EntityManagerInterface $entityManager
+    ): Response {
         /**
          * @var $user User
          */
         $user = $this->getUser();
         if (!$user) {
-            $this->addFlash('danger', 'Vous devez être connecté pour accéder à cette fonctionnalité.');
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour accéder à cette fonctionnalité.'
+            );
             return $this->redirectToRoute('app_login');
         }
 
         if ($user->isIsValid()) {
-            $this->addFlash('info', 'Votre compte est déjà activé.');
+            $this->addFlash(
+                'info',
+                'Votre compte est déjà activé.'
+            );
             return $this->redirectToRoute('app_home');
         }
 
@@ -103,9 +138,18 @@ class RegistrationController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        $mail->send('noreply@snowtricks.com', $user->getEmail(), 'Activation de votre compte Snowtricks', 'register', compact('user', 'token'));
+        $mail->send(
+            'noreply@snowtricks.com',
+            $user->getEmail(),
+            'Activation de votre compte Snowtricks',
+            'register',
+            compact('user', 'token')
+        );
 
-        $this->addFlash('info', 'Un nouvel email vous a été envoyé afin d\'activer votre compte.');
+        $this->addFlash(
+            'info',
+            'Un nouvel email vous a été envoyé afin d\'activer votre compte.'
+        );
         return $this->redirectToRoute('app_home');
     }
 }

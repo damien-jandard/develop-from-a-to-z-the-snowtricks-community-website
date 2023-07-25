@@ -16,15 +16,21 @@ class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashboard', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function dashboard(#[CurrentUser] User $user, Request $request, DashboardHandlerInterface $dashboardHandler): Response
-    {
+    public function dashboard(
+        #[CurrentUser] User $user,
+        Request $request,
+        DashboardHandlerInterface $dashboardHandler
+    ): Response {
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $dashboardHandler($form, $user);
 
-            $this->addFlash('success', 'Votre profil a été mis à jour.');
+            $this->addFlash(
+                'success',
+                'Votre profil a été mis à jour.'
+            );
             return $this->redirectToRoute('app_dashboard');
         }
 

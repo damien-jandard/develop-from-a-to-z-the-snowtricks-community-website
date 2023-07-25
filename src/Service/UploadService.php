@@ -15,11 +15,12 @@ class UploadService
     ) {
     }
 
-    public function upload(UploadedFile $file): string
-    {
+    public function upload(
+        UploadedFile $file
+    ): string {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
+        $fileName = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
@@ -34,19 +35,21 @@ class UploadService
         return $this->targetDirectory;
     }
 
-    public function uploadPictures(Trick $trick): void
-    {
+    public function uploadPictures(
+        Trick $trick
+    ): void {
         foreach ($trick->getPictures() as $picture) {
             if ($picture->getFile() !== null) {
                 $picture->setName($this->upload($picture->getFile()));
-            }elseif ($picture->getName() === null && $picture->getFile() === null) {
+            } elseif ($picture->getName() === null && $picture->getFile() === null) {
                 $trick->removePicture($picture);
             }
         }
     }
 
-    public function uploadVideos(Trick $trick): void
-    {
+    public function uploadVideos(
+        Trick $trick
+    ): void {
         foreach ($trick->getVideos() as $video) {
             $host = parse_url($video->getVideoId(), PHP_URL_HOST);
             parse_str(parse_url($video->getVideoId(), PHP_URL_QUERY), $videoId);
@@ -58,8 +61,9 @@ class UploadService
         }
     }
 
-    public function removePictures(Trick $trick): void
-    {
+    public function removePictures(
+        Trick $trick
+    ): void {
         foreach ($trick->getPictures() as $picture) {
             if (file_exists($this->getTargetDirectory() . $picture->getName())) {
                 unlink($this->getTargetDirectory() . $picture->getName());

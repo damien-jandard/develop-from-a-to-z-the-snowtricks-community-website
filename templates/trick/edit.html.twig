@@ -52,7 +52,7 @@
                             {% if video %}
                                 <div class="col-lg-4 col-md-6 portfolio-item">
                                     {% if video.vars.data.id is not null %}
-                                        <iframe class="video-edit" src="https://www.youtube.com/embed/{{ video.vars.data.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                        <iframe class="video-edit" src="{{ constant('App\\Entity\\Video::YOUTUBE') }}{{ video.vars.data.videoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                     {% endif %}
                                     {{ include('trick/_video_edit.html.twig', {videoForm: video}) }}
                                 </div>

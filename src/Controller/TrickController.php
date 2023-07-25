@@ -23,24 +23,44 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class TrickController extends AbstractController
 {
     #[Route('/delete/{slug}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Trick $trick, TrickRepository $trickRepository, UploadService $uploadService): Response
-    {
-        $this->denyAccessUnlessGranted('CAN_DELETE', $trick, 'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName());
-        
+    public function delete(
+        Request $request,
+        Trick $trick,
+        TrickRepository $trickRepository,
+        UploadService $uploadService
+    ): Response {
+        $this->denyAccessUnlessGranted(
+            'CAN_DELETE',
+            $trick,
+            'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName()
+        );
+
         if ($this->isCsrfTokenValid(sprintf('delete%s', $trick->getSlug()), $request->request->get('_token'))) {
             $uploadService->removePictures($trick);
             $trickRepository->remove($trick, true);
-            $this->addFlash('success', 'La figure a été supprimée.');
+            $this->addFlash(
+                'success',
+                'La figure a été supprimée.'
+            );
         }
-        
+
         return $this->redirectToRoute('app_home');
     }
 
     #[Route('/edit/{slug}', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(#[CurrentUser] User $user, Request $request, Trick $trick, UploadService $uploadService, TrickRepository $trickRepository): Response
-    {        
-        $this->denyAccessUnlessGranted('CAN_EDIT', $trick, 'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName());
-        
+    public function edit(
+        #[CurrentUser] User $user,
+        Request $request,
+        Trick $trick,
+        UploadService $uploadService,
+        TrickRepository $trickRepository
+    ): Response {
+        $this->denyAccessUnlessGranted(
+            'CAN_EDIT',
+            $trick,
+            'Accès refusé, vous n\'êtes pas le propriétaire de la figure ' . $trick->getName()
+        );
+
         $form = $this->createForm(TrickFormType::class, $trick, ['validation_groups' => 'edit'])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,10 +69,13 @@ class TrickController extends AbstractController
             $uploadService->uploadVideos($trick);
             $trickRepository->save($trick, true);
 
-            $this->addFlash('success', 'La figure a été mise à jour.');
+            $this->addFlash(
+                'success',
+                'La figure a été mise à jour.'
+            );
             return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
         }
-        
+
         return $this->render('trick/edit.html.twig', [
             'trick' => $trick,
             'trickForm' => $form,
@@ -60,8 +83,13 @@ class TrickController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(#[CurrentUser] User $user, Request $request, SluggerInterface $slugger, UploadService $uploadService, TrickRepository $trickRepository): Response
-    {
+    public function new(
+        #[CurrentUser] User $user,
+        Request $request,
+        SluggerInterface $slugger,
+        UploadService $uploadService,
+        TrickRepository $trickRepository
+    ): Response {
         $trick = new Trick();
         $form = $this->createForm(TrickFormType::class, $trick, ['validation_groups' => 'new'])->handleRequest($request);
 
@@ -73,10 +101,13 @@ class TrickController extends AbstractController
 
             $trickRepository->save($trick, true);
 
-            $this->addFlash('success', 'Votre figure a été ajouté.');
+            $this->addFlash(
+                'success',
+                'Votre figure a été ajouté.'
+            );
             return $this->redirectToRoute('app_trick_show', ['_fragment' => 'header', 'slug' => $trick->getSlug()]);
         }
-        
+
         return $this->render('trick/new.html.twig', [
             'trick' => $trick,
             'trickForm' => $form,
@@ -84,11 +115,16 @@ class TrickController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(#[CurrentUser] ?User $user, Request $request, Trick $trick, EntityManagerInterface $entityManager, MessageRepository $messageRepository): Response
-    {
+    public function show(
+        #[CurrentUser] ?User $user,
+        Request $request,
+        Trick $trick,
+        EntityManagerInterface $entityManager,
+        MessageRepository $messageRepository
+    ): Response {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $messageRepository->getMessagePaginator($trick, $offset);
-        
+
         $message = new Message();
         $message->setUser($user);
         $message->setTrick($trick);
@@ -98,7 +134,10 @@ class TrickController extends AbstractController
             $entityManager->persist($message);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Merci pour votre message.');
+            $this->addFlash(
+                'success',
+                'Merci pour votre message.'
+            );
             return $this->redirectToRoute('app_trick_show', ['_fragment' => 'header', 'slug' => $trick->getSlug()]);
         }
 

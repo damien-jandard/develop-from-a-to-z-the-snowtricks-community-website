@@ -15,7 +15,7 @@ class MessageFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', TextType::class,[
+            ->add('content', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Votre message',
