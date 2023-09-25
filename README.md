@@ -12,7 +12,7 @@ Project number six completed as part of my OpenClassrooms training.
  
 ## Install
 
-1. In your terminal, execute the following command to clone the project into the "blog" directory.
+1. In your terminal, execute the following command to clone the project into the "snowtricks" directory.
 ```shell
 git clone https://github.com/damien-jandard/develop-from-a-to-z-the-snowtricks-community-website.git snowtricks
 ```
